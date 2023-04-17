@@ -3,6 +3,7 @@ import 'package:social_cook/main.dart';
 import 'package:social_cook/src/screens/homePage.dart';
 
 import '../models/User.dart';
+import '../screens/login.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
