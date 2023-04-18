@@ -6,6 +6,7 @@ import 'package:social_cook/src/providers/user.dart';
 
 import 'package:social_cook/src/screens/homePage.dart';
 import 'package:social_cook/src/screens/login.dart';
+import 'package:social_cook/src/screens/register.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (context) =>  const MyLoginPage(title: "Login",),
            "/homePage": (context) =>  const HomePage(),
+           "/register": (context) =>  const Register(),
     
         }
       ),

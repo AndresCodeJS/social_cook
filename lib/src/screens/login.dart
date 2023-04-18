@@ -114,7 +114,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children:  <Widget>[
                               const Text("No tienes cuenta?"),
-                              TextButton(onPressed: () => {}, child: const Text("Registrate"))
+                              TextButton(onPressed: () => {_onRegister(context)}, child: const Text("Registrate"))
                             ],
                           )
                     ],
@@ -145,5 +145,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
         _loading = false;
       });
     }
+  }
+  
+  _onRegister(BuildContext context) {
+
+    Navigator.of(context).pushNamed("/register");
   }
 }
