@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:social_cook/src/widgets/register/imageSelector.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -43,36 +44,7 @@ class _RegisterState extends State<Register> {
             margin:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15),
             width: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  onTap: _openImagePicker,
-                  child: ClipRRect(
-                   borderRadius: BorderRadius.circular(200.0),
-                    child: _image != null
-                        ? Image.file(
-                            _image!,
-                            fit: BoxFit.cover,
-                            height: 200,
-                            width: 200,
-                          )
-                        : Image.asset(
-                            "assets/camara.png",
-                            color: Colors.white,
-                            height: 200,
-                            width: 200,
-                          ),
-                  ),
-                ),
-                IconButton(
-                    onPressed: _openImagePicker,
-                    icon: const Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    ))
-              ],
-            ),
+            child: ImageSelector(openImagePicker: _openImagePicker, image: _image,)
           )
         ],
       ),
