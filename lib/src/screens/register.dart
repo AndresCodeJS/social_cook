@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:social_cook/src/utils/constants.dart';
 import 'package:social_cook/src/widgets/register/imageSelector.dart';
 
 class Register extends StatefulWidget {
@@ -12,6 +13,9 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,21 +59,46 @@ class _RegisterState extends State<Register> {
                     padding: const EdgeInsets.only(
                         top: 20, right: 40, left: 40, bottom: 40),
                     child: Form(
+                      key: _formKey,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           TextFormField(
                             decoration: const InputDecoration(
                                 labelText: "Nombre y Apellido"),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return isEmpty;
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                           TextFormField(
                             decoration:
                                 const InputDecoration(labelText: "Email"),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return isEmpty;
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                           TextFormField(
                             decoration:
                                 const InputDecoration(labelText: "Contraseña"),
                             obscureText: true,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return isEmpty;
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                           TextFormField(
                             decoration: const InputDecoration(
@@ -77,7 +106,7 @@ class _RegisterState extends State<Register> {
                             obscureText: true,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return "Llene este campo";
+                                return isEmpty;
                               }
                             },
                           ),
@@ -85,7 +114,7 @@ class _RegisterState extends State<Register> {
                             height: 40,
                           ),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {_onSave(context);},
                             style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(double.infinity, 60)),
                             child: const Text('Guardar'),
@@ -114,5 +143,13 @@ class _RegisterState extends State<Register> {
         _image = File(pickedImage.path);
       });
     }
+  }
+  
+  void _onSave(BuildContext context) {
+
+   if(_formKey.currentState!.validate()){
+    print("aprobado");
+   }
+
   }
 }
