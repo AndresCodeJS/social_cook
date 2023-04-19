@@ -14,7 +14,7 @@ class ImageSelector extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 GestureDetector(
-                  onTap: (){openImagePicker();},
+                  onTap: (){_showDialog(context);},
                   child: ClipRRect(
                    borderRadius: BorderRadius.circular(200.0),
                     child: image != null
@@ -33,7 +33,7 @@ class ImageSelector extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                    onPressed: (){openImagePicker();},
+                    onPressed: (){_showDialog(context);},
                     icon: const Icon(
                       Icons.edit,
                       color: Colors.white,
@@ -41,10 +41,40 @@ class ImageSelector extends StatelessWidget {
               ],
             );
 
-
-
-
-
-
   }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+         
+           return SimpleDialog(
+            title: const Text("Seleccione"),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            children: <Widget>[
+              ListTile(
+                title: const Text("Cámara"),
+                leading: const Icon(Icons.add_a_photo),
+                onTap: () {
+                  openImagePicker("camera");
+                  Navigator.of(context).pop();
+                },
+              ),
+               ListTile(
+                title: const Text("Galeria"),
+                leading: const Icon(Icons.add_photo_alternate),
+                onTap: () {
+                  openImagePicker("gallery");
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+
+
+
 }

@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:social_cook/src/providers/user.dart';
 import 'package:social_cook/src/widgets/login/logo.dart';
 
-
 class MyLoginPage extends StatefulWidget {
   const MyLoginPage({super.key, required this.title});
 
@@ -16,21 +15,20 @@ class MyLoginPage extends StatefulWidget {
 class _MyLoginPageState extends State<MyLoginPage> {
   bool _loading = false;
 
-  late String userName;
+  late String email;
   late String password;
-  
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-
     final user = Provider.of<User>(context);
-    
+
     return Scaffold(
         body: Form(
-          key: _formKey,
-          child: Stack(
-              children: <Widget>[
+      key: _formKey,
+      child: Stack(
+        children: <Widget>[
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 20),
@@ -44,12 +42,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
           Center(
             child: SingleChildScrollView(
               child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
                 margin: const EdgeInsets.only(
-                    top:  200,
-                    right: 20,
-                    left: 20,
-                    bottom: 40),
+                    top: 200, right: 20, left: 20, bottom: 40),
                 child: Padding(
                   padding: const EdgeInsets.only(
                       right: 40, left: 40, top: 20, bottom: 40),
@@ -58,11 +54,11 @@ class _MyLoginPageState extends State<MyLoginPage> {
                     children: <Widget>[
                       TextFormField(
                         decoration: const InputDecoration(labelText: "Usuario"),
-                        onSaved: (value){
-                          userName = value!;
+                        onSaved: (value) {
+                          email = value!;
                         },
-                        validator: (value){
-                          if(value!.isEmpty){
+                        validator: (value) {
+                          if (value!.isEmpty) {
                             return "Llene este campo";
                           }
                         },
@@ -74,11 +70,11 @@ class _MyLoginPageState extends State<MyLoginPage> {
                         decoration:
                             const InputDecoration(labelText: "Contraseña"),
                         obscureText: true,
-                         onSaved: (value){
+                        onSaved: (value) {
                           password = value!;
                         },
-                         validator: (value){
-                          if(value!.isEmpty){
+                        validator: (value) {
+                          if (value!.isEmpty) {
                             return "Llene este campo";
                           }
                         },
@@ -108,24 +104,27 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                     ),
                             ],
                           )),
-        
-                       const SizedBox(height: 40,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children:  <Widget>[
-                              const Text("No tienes cuenta?"),
-                              TextButton(onPressed: () => {_onRegister(context)}, child: const Text("Registrate"))
-                            ],
-                          )
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          const Text("No tienes cuenta?"),
+                          TextButton(
+                              onPressed: () => {_onRegister(context)},
+                              child: const Text("Registrate"))
+                        ],
+                      )
                     ],
                   ),
                 ),
               ),
             ),
           ),
-              ],
-            ),
-        ));
+        ],
+      ),
+    ));
   }
 
   void _login(BuildContext context, User user) {
@@ -134,21 +133,20 @@ class _MyLoginPageState extends State<MyLoginPage> {
         _loading = true;
       });
     }
-    if(_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print("Hola $userName , $password");
-      user.setDatos(userName, password);
+      print("Hola $email , $password");
+      user.setDatos(email: email, password: password);
       Navigator.of(context).pushNamed("/homePage");
       _loading = false;
-    }else{
-        setState(() {
+    } else {
+      setState(() {
         _loading = false;
       });
     }
   }
-  
-  _onRegister(BuildContext context) {
 
+  _onRegister(BuildContext context) {
     Navigator.of(context).pushNamed("/register");
   }
 }

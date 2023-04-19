@@ -3,32 +3,29 @@ import 'package:flutter/material.dart';
 class User with ChangeNotifier{
 
   String _nombre ="" ;
-  String _apellido = "" ;
-
-  User(nombre, apellido){
-    _nombre = nombre;
-    _apellido = apellido;
-     notifyListeners();
-  }
+  String _email = "" ;
+   String _password = "" ;
 
   String get nombre {
     return _nombre;
   }
 
-  String get apellido {
-    return _apellido;
+  String get email {
+    return _email;
   }
 
-  set nombre (String nombre){
-    _nombre = nombre;
-
-    notifyListeners();
+   String get password {
+    return _password;
   }
 
-  setDatos (String nombre, String apellido){
+
+  
+
+  setDatos ({String nombre = "" , required String password,required String email}){
 
     _nombre = nombre;
-    _apellido = apellido;
+    _email = email;
+    _password = password;
      notifyListeners();
   }
 

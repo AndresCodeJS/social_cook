@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Row(
           children:  <Widget>[
-            Text("Nombre de usuario: ${user.nombre} , y el apellido ${user.apellido}")
+            Text("Nombre de usuario: ${user.nombre} , y el apellido ${user.email}")
           ],
         ),
       ),

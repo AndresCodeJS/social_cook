@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     
     return MultiProvider(
       providers: [
-        ListenableProvider(create: (context) => User("","")),
+        ListenableProvider(create: (context) => User()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

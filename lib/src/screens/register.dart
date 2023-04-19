@@ -41,11 +41,61 @@ class _RegisterState extends State<Register> {
                 backgroundColor: Colors.transparent),
           ),
           Container(
-            margin:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15),
-            width: double.infinity,
-            child: ImageSelector(openImagePicker: _openImagePicker, image: _image,)
-          )
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.10),
+              width: double.infinity,
+              child: ListView(children: [
+                ImageSelector(
+                  openImagePicker: _openImagePicker,
+                  image: _image,
+                ),
+                Card(
+                  margin: const EdgeInsets.all(20),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20, right: 40, left: 40, bottom: 40),
+                    child: Form(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                labelText: "Nombre y Apellido"),
+                          ),
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(labelText: "Email"),
+                          ),
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(labelText: "Contraseña"),
+                            obscureText: true,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                labelText: "Repetir Contraseña"),
+                            obscureText: true,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Llene este campo";
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(double.infinity, 60)),
+                            child: const Text('Guardar'),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ])),
         ],
       ),
     );
@@ -55,9 +105,10 @@ class _RegisterState extends State<Register> {
 
   final _picker = ImagePicker();
 
-  Future<void> _openImagePicker() async {
-    final XFile? pickedImage =
-        await _picker.pickImage(source: ImageSource.camera);
+  Future<void> _openImagePicker(String option) async {
+    final XFile? pickedImage = option == "camera"
+        ? await _picker.pickImage(source: ImageSource.camera)
+        : await _picker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       setState(() {
         _image = File(pickedImage.path);
