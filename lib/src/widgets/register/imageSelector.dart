@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
+typedef imagePicker =Future<void> Function(String option);
+
 class ImageSelector extends StatelessWidget {
   const ImageSelector({super.key, required this.image, required this.openImagePicker});
 
-  final Function openImagePicker;
+  final imagePicker openImagePicker;
 
   final File? image;
 

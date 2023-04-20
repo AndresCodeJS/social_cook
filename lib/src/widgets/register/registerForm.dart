@@ -8,7 +8,7 @@ typedef onSaveForm = Function(BuildContext context, User usuario);
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key, required this.onSave});
 
-  final onSaveForm  onSave;
+  final onSaveForm onSave;
 
   @override
   State<RegisterForm> createState() => _RegisterFormState();
@@ -19,6 +19,8 @@ class _RegisterFormState extends State<RegisterForm> {
 
   String _error = "";
   String repeatedPassword = "";
+
+  Genrer? _genrer = Genrer.male;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -59,6 +61,7 @@ class _RegisterFormState extends State<RegisterForm> {
           TextFormField(
             decoration: const InputDecoration(labelText: "Contraseña"),
             obscureText: true,
+            onChanged: (value){onChangePassword();},
             validator: (value) {
               if (value!.isEmpty) {
                 return isEmpty;
@@ -74,6 +77,7 @@ class _RegisterFormState extends State<RegisterForm> {
           TextFormField(
             decoration: const InputDecoration(labelText: "Repetir Contraseña"),
             obscureText: true,
+            onChanged: (value){onChangePassword();},
             validator: (value) {
               if (value!.isEmpty) {
                 return isEmpty;
@@ -86,6 +90,49 @@ class _RegisterFormState extends State<RegisterForm> {
           const SizedBox(
             height: 40,
           ),
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              "Género:",
+              style: TextStyle(color: Colors.grey[700], fontSize: 16),
+              textAlign: TextAlign.start,
+            ),
+          ),
+       /*    const SizedBox(
+            height: 40,
+          ), */
+          Column(
+            children: [
+              RadioListTile(
+                title: const Text('Masculino'),
+                contentPadding: const EdgeInsets.all(0),
+                
+                value: Genrer.male,
+                activeColor: Colors.blue,
+                groupValue: _genrer,
+                onChanged: (Genrer? value) {
+                  setState(() {
+                    _genrer = value;
+                  });
+                },
+              ),
+              SizedBox(
+                
+                child: RadioListTile(
+                  title: const Text('Femenino'),
+                  contentPadding: const EdgeInsets.all(0),
+                  value: Genrer.female,
+                  activeColor: Colors.blue,
+                  groupValue: _genrer,
+                  onChanged: (Genrer? value) {
+                    setState(() {
+                      _genrer = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
           ElevatedButton(
             onPressed: () {
               _onValidate(context);
@@ -94,17 +141,25 @@ class _RegisterFormState extends State<RegisterForm> {
                 minimumSize: const Size(double.infinity, 60)),
             child: const Text('Guardar'),
           ),
-          if (!_error.isEmpty)
+          _error.isNotEmpty ?
             Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 20),
               child: Text(
                 _error,
                 style: const TextStyle(color: Colors.red),
               ),
-            )
+            ):const SizedBox()
         ],
       ),
     );
+  }
+
+  void onChangePassword(){
+    if(_error.isNotEmpty){
+      setState(() {
+        _error = "";
+      });
+    }
   }
 
   void _onValidate(BuildContext context) {
@@ -118,6 +173,8 @@ class _RegisterFormState extends State<RegisterForm> {
       }
 
       print('Nombre en form es: ${usuario.nombre}');
+
+      print('El genero seleccionado es: ${_genrer.toString()}');
 
       widget.onSave(context, usuario);
     }
