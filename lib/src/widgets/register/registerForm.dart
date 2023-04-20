@@ -20,6 +20,9 @@ class _RegisterFormState extends State<RegisterForm> {
   String _error = "";
   String repeatedPassword = "";
 
+  bool showPassword = false;
+  bool showPasswordR = false;
+
   Genrer? _genrer = Genrer.male;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -59,9 +62,22 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20,
           ),
           TextFormField(
-            decoration: const InputDecoration(labelText: "Contraseña"),
-            obscureText: true,
-            onChanged: (value){onChangePassword();},
+            decoration: InputDecoration(
+                labelText: "Contraseña",
+                suffixIcon: IconButton(
+                  icon: !showPassword
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      showPassword = !showPassword;
+                    });
+                  },
+                )),
+            obscureText: !showPassword,
+            onChanged: (value) {
+              onChangePassword();
+            },
             validator: (value) {
               if (value!.isEmpty) {
                 return isEmpty;
@@ -75,9 +91,22 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20,
           ),
           TextFormField(
-            decoration: const InputDecoration(labelText: "Repetir Contraseña"),
-            obscureText: true,
-            onChanged: (value){onChangePassword();},
+            decoration: InputDecoration(
+                labelText: "Repetir Contraseña",
+                suffixIcon: IconButton(
+                  icon: !showPasswordR
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      showPasswordR = !showPasswordR;
+                    });
+                  },
+                )),
+            obscureText: !showPasswordR,
+            onChanged: (value) {
+              onChangePassword();
+            },
             validator: (value) {
               if (value!.isEmpty) {
                 return isEmpty;
@@ -98,15 +127,11 @@ class _RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.start,
             ),
           ),
-       /*    const SizedBox(
-            height: 40,
-          ), */
           Column(
             children: [
               RadioListTile(
                 title: const Text('Masculino'),
                 contentPadding: const EdgeInsets.all(0),
-                
                 value: Genrer.male,
                 activeColor: Colors.blue,
                 groupValue: _genrer,
@@ -117,7 +142,6 @@ class _RegisterFormState extends State<RegisterForm> {
                 },
               ),
               SizedBox(
-                
                 child: RadioListTile(
                   title: const Text('Femenino'),
                   contentPadding: const EdgeInsets.all(0),
@@ -141,21 +165,22 @@ class _RegisterFormState extends State<RegisterForm> {
                 minimumSize: const Size(double.infinity, 60)),
             child: const Text('Guardar'),
           ),
-          _error.isNotEmpty ?
-            Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: Text(
-                _error,
-                style: const TextStyle(color: Colors.red),
-              ),
-            ):const SizedBox()
+          _error.isNotEmpty
+              ? Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    _error,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                )
+              : const SizedBox()
         ],
       ),
     );
   }
 
-  void onChangePassword(){
-    if(_error.isNotEmpty){
+  void onChangePassword() {
+    if (_error.isNotEmpty) {
       setState(() {
         _error = "";
       });
