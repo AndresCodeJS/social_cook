@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_cook/src/utils/constants.dart';
 import 'package:social_cook/src/widgets/register/imageSelector.dart';
+import 'package:social_cook/src/widgets/register/registerForm.dart';
+
+import '../models/User.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -14,7 +17,8 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  File? _image;
+  final _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,6 @@ class _RegisterState extends State<Register> {
               Color.fromARGB(255, 146, 201, 209),
               Color.fromARGB(255, 11, 180, 196)
             ])),
-            /* child: const FlutterLogo(), */
           ),
           SizedBox(
             height: 100,
@@ -58,70 +61,7 @@ class _RegisterState extends State<Register> {
                   child: Padding(
                     padding: const EdgeInsets.only(
                         top: 20, right: 40, left: 40, bottom: 40),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          TextFormField(
-                            decoration: const InputDecoration(
-                                labelText: "Nombre y Apellido"),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return isEmpty;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: "Email"),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return isEmpty;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: "Contraseña"),
-                            obscureText: true,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return isEmpty;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                                labelText: "Repetir Contraseña"),
-                            obscureText: true,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return isEmpty;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          ElevatedButton(
-                            onPressed: () {_onSave(context);},
-                            style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(double.infinity, 60)),
-                            child: const Text('Guardar'),
-                          )
-                        ],
-                      ),
-                    ),
+                    child: RegisterForm(onSave: _onSave)
                   ),
                 )
               ])),
@@ -129,10 +69,6 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
-
-  File? _image;
-
-  final _picker = ImagePicker();
 
   Future<void> _openImagePicker(String option) async {
     final XFile? pickedImage = option == "camera"
@@ -145,11 +81,8 @@ class _RegisterState extends State<Register> {
     }
   }
   
-  void _onSave(BuildContext context) {
-
-   if(_formKey.currentState!.validate()){
-    print("aprobado");
-   }
-
+  void _onSave(BuildContext context, User usuario) {
+    print("aprobado ${usuario.nombre} y la imagen $_image}");
+   
   }
 }

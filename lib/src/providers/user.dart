@@ -4,7 +4,7 @@ class User with ChangeNotifier{
 
   String _nombre ="" ;
   String _email = "" ;
-   String _password = "" ;
+  String _password = "" ;
 
   String get nombre {
     return _nombre;
