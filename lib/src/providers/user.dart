@@ -19,8 +19,6 @@ class User with ChangeNotifier{
   }
 
 
-  
-
   setDatos ({String nombre = "" , required String password,required String email}){
 
     _nombre = nombre;

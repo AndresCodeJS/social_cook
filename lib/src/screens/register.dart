@@ -95,10 +95,5 @@ class _RegisterState extends State<Register> {
           label: "Deshacer", onPressed: () => {print("Cancela deshacer")}),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-   /*  _scaffkey.currentState.showSnackBar(SnackBar(
-        content: Text(
-      title,
-      textAlign: TextAlign.center,
-    ))); */
   }
 }

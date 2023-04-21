@@ -198,10 +198,10 @@ class _RegisterFormState extends State<RegisterForm> {
         return;
       }
 
-      print('Nombre en form es: ${usuario.nombre}');
+    /*   print('Nombre en form es: ${usuario.nombre}');
 
       print('El genero seleccionado es: ${_genrer.toString()}');
-
+ */
       widget.onSave(context, usuario);
     }
   }

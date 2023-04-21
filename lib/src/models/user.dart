@@ -5,9 +5,6 @@ class User {
   String photo = "";
   String genre = "";
   
- 
-
  /*  User({this.nombre = "", this.email = "",this.password = ""}); */
 
- 
 }
