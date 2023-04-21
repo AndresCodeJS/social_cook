@@ -195,6 +195,7 @@ class _RegisterFormState extends State<RegisterForm> {
         setState(() {
           _error = 'La contraseña no coincide';
         });
+        return;
       }
 
       print('Nombre en form es: ${usuario.nombre}');

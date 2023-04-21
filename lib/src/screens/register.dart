@@ -16,9 +16,10 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-
   File? _image;
   final _picker = ImagePicker();
+
+  final GlobalKey<ScaffoldState> _scaffkey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +60,9 @@ class _RegisterState extends State<Register> {
                 Card(
                   margin: const EdgeInsets.all(20),
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, right: 40, left: 40, bottom: 40),
-                    child: RegisterForm(onSave: _onSave)
-                  ),
+                      padding: const EdgeInsets.only(
+                          top: 20, right: 40, left: 40, bottom: 40),
+                      child: RegisterForm(onSave: _onSave)),
                 )
               ])),
         ],
@@ -80,9 +80,25 @@ class _RegisterState extends State<Register> {
       });
     }
   }
-  
+
   void _onSave(BuildContext context, User usuario) {
+    if (_image == null) {showSnackBar(context, "Seleccione una imagen",Colors.orange);}
     print("aprobado ${usuario.nombre} y la imagen $_image}");
-   
+  }
+
+  void showSnackBar(BuildContext context, String title, Color backColor) {
+
+     SnackBar snackBar = SnackBar(
+      content: Text(title),
+      backgroundColor: backColor,
+      action: SnackBarAction(
+          label: "Deshacer", onPressed: () => {print("Cancela deshacer")}),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+   /*  _scaffkey.currentState.showSnackBar(SnackBar(
+        content: Text(
+      title,
+      textAlign: TextAlign.center,
+    ))); */
   }
 }
