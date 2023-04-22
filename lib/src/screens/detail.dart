@@ -16,12 +16,31 @@ class _DetailState extends State<Detail> {
       child: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
-            const SliverAppBar(
-              title: Text("DETAILS"),
+            SliverAppBar(
+              backgroundColor: Colors.black,
+              title: const Text("DETAILS"),
+              expandedHeight: 320,
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: const AssetImage("assets/pokemon.jpg"),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.5), BlendMode.dstATop)),
+                ),
+              ),
+              pinned: true,
+              bottom: const TabBar(indicatorWeight: 4, tabs: [
+                Tab(child: Text("Ingredientes")),
+                Tab(
+                  child: Text("Preparación"),
+                )
+              ]),
             )
           ];
         },
-        body: const TabBarView(children: [Text("Hola"), Text("hola2")]),
+        body: const TabBarView(
+            children: [Text("Pantalla 1"), Text("Pantalla 2")]),
       ),
     ));
   }
