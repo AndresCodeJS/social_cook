@@ -39,6 +39,7 @@ class _RegisterFormState extends State<RegisterForm> {
               if (value!.isEmpty) {
                 return isEmpty;
               }
+              return null;
             },
             onSaved: (value) {
               usuario.nombre = value!;
@@ -53,6 +54,8 @@ class _RegisterFormState extends State<RegisterForm> {
               if (value!.isEmpty) {
                 return isEmpty;
               }
+
+              return null;
             },
             onSaved: (value) {
               usuario.email = value!;
@@ -82,6 +85,7 @@ class _RegisterFormState extends State<RegisterForm> {
               if (value!.isEmpty) {
                 return isEmpty;
               }
+              return null;
             },
             onSaved: (value) {
               usuario.password = value!;
@@ -111,6 +115,8 @@ class _RegisterFormState extends State<RegisterForm> {
               if (value!.isEmpty) {
                 return isEmpty;
               }
+
+              return null;
             },
             onSaved: (value) {
               repeatedPassword = value!;
@@ -205,4 +211,6 @@ class _RegisterFormState extends State<RegisterForm> {
       widget.onSave(context, usuario);
     }
   }
+
+  
 }

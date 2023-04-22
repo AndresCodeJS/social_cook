@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:social_cook/src/utils/constants.dart';
 import 'package:social_cook/src/widgets/register/imageSelector.dart';
 import 'package:social_cook/src/widgets/register/registerForm.dart';
 
 import '../models/User.dart';
+import '../utils/snackBar.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -18,8 +18,6 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   File? _image;
   final _picker = ImagePicker();
-
-  final GlobalKey<ScaffoldState> _scaffkey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -82,18 +80,11 @@ class _RegisterState extends State<Register> {
   }
 
   void _onSave(BuildContext context, User usuario) {
-    if (_image == null) {showSnackBar(context, "Seleccione una imagen",Colors.orange);}
-    print("aprobado ${usuario.nombre} y la imagen $_image}");
-  }
-
-  void showSnackBar(BuildContext context, String title, Color backColor) {
-
-     SnackBar snackBar = SnackBar(
-      content: Text(title),
-      backgroundColor: backColor,
-      action: SnackBarAction(
-          label: "Deshacer", onPressed: () => {print("Cancela deshacer")}),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    if (_image == null) {
+      showSnackBar(context, "Seleccione una imagen", Colors.orange);
+      return;
+    }
+   /*  print("aprobado ${usuario.nombre} y la imagen $_image}"); */
+    showSnackBar(context, "Usuario guardado exitosamente", Colors.green);
   }
 }
