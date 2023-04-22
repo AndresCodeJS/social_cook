@@ -10,6 +10,19 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+        body: DefaultTabController(
+      length: 2,
+      child: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            const SliverAppBar(
+              title: Text("DETAILS"),
+            )
+          ];
+        },
+        body: const TabBarView(children: [Text("Hola"), Text("hola2")]),
+      ),
+    ));
   }
 }
