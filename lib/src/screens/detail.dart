@@ -30,12 +30,18 @@ class _DetailState extends State<Detail> {
                 ),
               ),
               pinned: true,
-              bottom: const TabBar(indicatorWeight: 4, tabs: [
+              bottom:  const TabBar(indicatorWeight: 4, tabs: [
                 Tab(child: Text("Ingredientes")),
                 Tab(
                   child: Text("Preparación"),
                 )
               ]),
+              actions: [
+                IconButton(icon: const Icon(Icons.edit), onPressed: () {  },),
+                IconButton(icon: const Icon(Icons.favorite), onPressed: () {  },),
+                IconButton(icon: const Icon(Icons.help), onPressed: () {  },),
+                const SizedBox(width: 20,)
+              ],
             )
           ];
         },
