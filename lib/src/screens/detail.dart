@@ -8,6 +8,8 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
+  List<String> lista = ["Queso", "Huevos", "Tocino"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,23 +32,51 @@ class _DetailState extends State<Detail> {
                 ),
               ),
               pinned: true,
-              bottom:  const TabBar(indicatorWeight: 4, tabs: [
+              bottom: const TabBar(indicatorWeight: 4, tabs: [
                 Tab(child: Text("Ingredientes")),
                 Tab(
                   child: Text("Preparación"),
                 )
               ]),
               actions: [
-                IconButton(icon: const Icon(Icons.edit), onPressed: () {  },),
-                IconButton(icon: const Icon(Icons.favorite), onPressed: () {  },),
-                IconButton(icon: const Icon(Icons.help), onPressed: () {  },),
-                const SizedBox(width: 20,)
+                IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(Icons.favorite),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(Icons.help),
+                  onPressed: () {},
+                ),
+                const SizedBox(
+                  width: 20,
+                )
               ],
             )
           ];
         },
-        body: const TabBarView(
-            children: [Text("Pantalla 1"), Text("Pantalla 2")]),
+        body: TabBarView(children: [
+          ListView(children: [
+            const Text("Ingredientes"),
+            Column(
+                children: List.generate(
+                    lista.length,
+                    (int index) => ListTile(
+                          title: Text(lista[index]),
+                          leading: Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Theme.of(context).primaryColor),
+                            height: 15,
+                            width: 15,
+                          ),
+                        )))
+          ]),
+          const Text("Pantalla 2")
+        ]),
       ),
     ));
   }
