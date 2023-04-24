@@ -6,6 +6,7 @@ import 'package:social_cook/src/screens/detail.dart';
 
 import 'package:social_cook/src/screens/homePage.dart';
 import 'package:social_cook/src/screens/login.dart';
+import 'package:social_cook/src/screens/map.dart';
 import 'package:social_cook/src/screens/register.dart';
 
 void main() {
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
                 ),
             "/homePage": (context) => const HomePage(),
             "/register": (context) => const Register(), */
-            "/": (context) => const Detail(),
+            "/": (context) => const MapScreen(),
           }),
     );
   }
