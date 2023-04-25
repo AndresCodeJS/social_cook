@@ -22,7 +22,11 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
 
-    /*  final controller = Provider.of<HomeController>(context); */
+     final controller = Provider.of<HomeController>(context);
+
+     controller.onMarkerTap.listen((String id) {
+      print("El marcador seleccionado es : $id");
+     },);
 
     return Scaffold(
       appBar: AppBar(),

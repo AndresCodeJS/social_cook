@@ -23,7 +23,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ListenableProvider(create: (context) => User()),
-        ListenableProvider(create: (context) => HomeController()),
+        ListenableProvider(create: (context) {
+          final controller = HomeController();
+           //Funcionalidad tap en marcadores
+           /* controller.onMarkerTap.listen((event) { }) */
+          return controller;
+        }),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
@@ -35,11 +40,11 @@ class MyApp extends StatelessWidget {
           ),
           initialRoute: "/",
           routes: {
-         /*   "/": (context) => const MyLoginPage(
+            /*   "/": (context) => const MyLoginPage(
                   title: "Login",
                 ),
             "/homePage": (context) => const HomePage(), */
-          //  "/register": (context) => const Register(),
+            //  "/register": (context) => const Register(),
             "/": (context) => const MapScreen(),
           }),
     );
