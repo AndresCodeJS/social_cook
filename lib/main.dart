@@ -8,6 +8,7 @@ import 'package:social_cook/src/screens/homePage.dart';
 import 'package:social_cook/src/screens/login.dart';
 import 'package:social_cook/src/screens/map.dart';
 import 'package:social_cook/src/screens/register.dart';
+import 'package:social_cook/src/ui/home_controller.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ListenableProvider(create: (context) => User()),
+        ListenableProvider(create: (context) => HomeController()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
@@ -33,11 +35,11 @@ class MyApp extends StatelessWidget {
           ),
           initialRoute: "/",
           routes: {
-            /* "/": (context) => const MyLoginPage(
+         /*   "/": (context) => const MyLoginPage(
                   title: "Login",
                 ),
-            "/homePage": (context) => const HomePage(),
-            "/register": (context) => const Register(), */
+            "/homePage": (context) => const HomePage(), */
+          //  "/register": (context) => const Register(),
             "/": (context) => const MapScreen(),
           }),
     );
