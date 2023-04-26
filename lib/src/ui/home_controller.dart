@@ -20,15 +20,23 @@ class HomeController with ChangeNotifier {
   }
 
   onTap(LatLng position) {
-
     final id = _markers.length.toString();
 
     final markerId = MarkerId(id);
 
-    final marker = Marker(markerId: markerId, position: position, onTap: (){
-
-      _markerController.sink.add(id);
-    });
+    final marker = Marker(
+        markerId: markerId,
+        position: position,
+        draggable: true,
+        icon: BitmapDescriptor.defaultMarkerWithHue(57),
+       /*  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure), */
+       /* rotation: 45, */
+        onDragEnd: (newPosition) {
+          print("La nueva posicion es $newPosition");
+        },
+        onTap: () {
+          _markerController.sink.add(id);
+        });
 
     _markers[markerId] = marker;
 
@@ -41,7 +49,7 @@ class HomeController with ChangeNotifier {
 
   @override
   void dispose() {
-     //Funcionalidad tap en marcadores
+    //Funcionalidad tap en marcadores
     _markerController.close();
     super.dispose();
   }
