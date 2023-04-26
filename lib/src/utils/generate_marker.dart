@@ -12,20 +12,20 @@ class MyPainter extends CustomPainter {
 
    
 
-  void paint(Canvas canvas, Size size) {
+  void paint(Canvas canvas, Size size) async {
     Paint bluePaint = Paint()..color = Colors.blue;
 
-    final Rect rect = Rect.fromLTWH(0, 0, 100, 50);
+  /*   final Rect rect = Rect.fromLTWH(0, 0, 100, 50);
     canvas.drawRect(
       rect,
       Paint()..color = Colors.blue,
-    );
+    ); */
 
 
         
     const textSpan = TextSpan(
-      text: "Posicion",
-      style: TextStyle(fontSize: 30, color: Colors.white),
+      text: "Diego",
+      style: TextStyle(fontSize: 20, color: Colors.black),
     );
 
      final textPainter = TextPainter(
@@ -36,9 +36,10 @@ class MyPainter extends CustomPainter {
         maxWidth: size.width,
       );
 
-      final dx = (size.width - textPainter.width + 5) * 0.5;
-    final dy = (size.height - textPainter.height) * 0.6;
-    final offset = Offset(dx, dy);
+    /* final dx = (size.width - textPainter.width + 5) * 0.5;
+    final dy = (size.height - textPainter.height) * 0.6; */
+    final dx = (size.width * 0.5 - textPainter.width/2);
+    final offset = Offset(dx, size.width / 4);
     textPainter.paint(canvas, offset);
 
     //dibujar una recta
@@ -49,8 +50,8 @@ class MyPainter extends CustomPainter {
     ); */
 
     //Dibujar un circulo
-   /*  canvas.drawCircle(
-        Offset(size.width / 2, size.height / 2), size.width / 4, bluePaint); */
+    canvas.drawCircle(
+        Offset(size.width *0.5, size.width *0.75 ), size.width / 6, bluePaint);
   }
 
   @override
