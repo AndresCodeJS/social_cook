@@ -53,6 +53,7 @@ class HomeController with ChangeNotifier {
     final marker = Marker(
         markerId: markerId,
         position: position,
+
         /* draggable: true, */
         /* icon: BitmapDescriptor.defaultMarkerWithHue(57), */
         /*  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure), */
