@@ -38,6 +38,8 @@ class HomeController with ChangeNotifier {
     controller.setMapStyle(mapStyle);
   }
 
+  
+
   onTap(LatLng position) async {
     final id = _markers.length.toString();
     final markerId = MarkerId(id);
@@ -59,11 +61,11 @@ class HomeController with ChangeNotifier {
         /*  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure), */
         icon: await icon,
         /* rotation: 45, */
-        anchor: Offset(0.5,0.5),
+        anchor: const Offset(0.5,0.5),
         /*   onDragEnd: (newPosition) {
           print("La nueva posicion es $newPosition");
         }, */
-        infoWindow: InfoWindow(
+        infoWindow: const InfoWindow(
           title: "San Francisco",
           snippet: "Ciudad de la niebla",
         ),
