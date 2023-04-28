@@ -1,8 +1,8 @@
 abstract class Routes {
   // ignore: constant_identifier_names
-  static const SPLASH = "/";
+  static const SPLASH = "/splash";
   // ignore: constant_identifier_names
-  static const HOME = "/home";
+  static const MAP = "/map";
   // ignore: constant_identifier_names
   static const PERMISSIONS = "/permissions";
 }

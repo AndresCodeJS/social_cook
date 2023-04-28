@@ -8,7 +8,10 @@ import 'package:social_cook/src/screens/homePage.dart';
 import 'package:social_cook/src/screens/login.dart';
 import 'package:social_cook/src/screens/map.dart';
 import 'package:social_cook/src/screens/register.dart';
+import 'package:social_cook/src/screens/request_permission/request_permission_screen.dart';
+import 'package:social_cook/src/screens/splash/splash.dart';
 import 'package:social_cook/src/ui/home_controller.dart';
+import 'package:social_cook/src/ui/routes/routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,8 +28,8 @@ class MyApp extends StatelessWidget {
         ListenableProvider(create: (context) => User()),
         ListenableProvider(create: (context) {
           final controller = HomeController();
-           //Funcionalidad tap en marcadores
-           /* controller.onMarkerTap.listen((event) { }) */
+          //Funcionalidad tap en marcadores
+          /* controller.onMarkerTap.listen((event) { }) */
           return controller;
         }),
       ],
@@ -38,14 +41,16 @@ class MyApp extends StatelessWidget {
               secondary: Colors.white,
             ),
           ),
-          initialRoute: "/",
+          initialRoute: "/splash",
           routes: {
             /*   "/": (context) => const MyLoginPage(
                   title: "Login",
                 ),
             "/homePage": (context) => const HomePage(), */
             //  "/register": (context) => const Register(),
-            "/": (context) => const MapScreen(),
+            Routes.SPLASH: (context) => const SplashScreen(),
+            Routes.PERMISSIONS: (context) => const RequestPermisionScreen(),
+            Routes.MAP: (context) => const MapScreen(),
           }),
     );
   }

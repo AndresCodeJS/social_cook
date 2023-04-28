@@ -22,7 +22,7 @@ class _RequestPermisionScreenState extends State<RequestPermisionScreen> {
     super.initState();
     _suscription = _controller.onStatusChanged.listen((status) {
       if (status == PermissionStatus.granted) {
-        Navigator.pushReplacementNamed(context, Routes.HOME);
+        Navigator.pushReplacementNamed(context, Routes.MAP);
       }
     });
   }
