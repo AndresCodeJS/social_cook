@@ -16,7 +16,10 @@ class RequestPermisionScreen extends StatefulWidget {
 class _RequestPermisionScreenState extends State<RequestPermisionScreen>
     with WidgetsBindingObserver {
   final _controller = RequestPermissionController(Permission.locationWhenInUse);
+
   late StreamSubscription _suscription;
+
+  bool _fromSettings = false;
 
   @override
   void initState() {
@@ -39,8 +42,8 @@ class _RequestPermisionScreenState extends State<RequestPermisionScreen>
                         "Para un correcto funcionamiento es necesario que entres a ajustes permitas el acceso a la ubicación del dispositivo "),
                     actions: [
                       TextButton(
-                          onPressed: () {
-                            openAppSettings();
+                          onPressed: () async {
+                            _fromSettings = await openAppSettings();
                             Navigator.pop(context);
                           },
                           child: const Text("Ir a Ajustes")),
@@ -57,12 +60,15 @@ class _RequestPermisionScreenState extends State<RequestPermisionScreen>
     });
   }
 
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (state == AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.resumed && _fromSettings) {
       final status = await _controller.check();
-      if (status == PermissionStatus.granted) {
+      if (status == PermissionStatus.granted ) {
         Navigator.pushReplacementNamed(context, Routes.MAP);
       }
+
+      _fromSettings = false;
     }
   }
 
