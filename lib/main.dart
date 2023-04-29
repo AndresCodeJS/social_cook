@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
               secondary: Colors.white,
             ),
           ),
-          initialRoute: "/splash",
+          initialRoute: Routes.PERMISSIONS,
           routes: {
             /*   "/": (context) => const MyLoginPage(
                   title: "Login",

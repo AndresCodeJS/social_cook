@@ -11,10 +11,15 @@ class RequestPermissionController {
 
   Stream<PermissionStatus> get onStatusChanged => _streamController.stream;
 
-  request() async {
+  Future<void> request() async {
     final status = await _locationPermission.request();
 
     _notify(status);
+  }
+
+  Future<PermissionStatus> check() async {
+    final status = await _locationPermission.status;
+    return status;
   }
 
   void _notify(PermissionStatus status){

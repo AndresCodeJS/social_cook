@@ -13,22 +13,62 @@ class RequestPermisionScreen extends StatefulWidget {
   State<RequestPermisionScreen> createState() => _RequestPermisionScreenState();
 }
 
-class _RequestPermisionScreenState extends State<RequestPermisionScreen> {
+class _RequestPermisionScreenState extends State<RequestPermisionScreen>
+    with WidgetsBindingObserver {
   final _controller = RequestPermissionController(Permission.locationWhenInUse);
   late StreamSubscription _suscription;
 
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addObserver(this);
+
     _suscription = _controller.onStatusChanged.listen((status) {
-      if (status == PermissionStatus.granted) {
-        Navigator.pushReplacementNamed(context, Routes.MAP);
+      switch (status) {
+        case PermissionStatus.granted:
+          Navigator.pushReplacementNamed(context, Routes.MAP);
+          break;
+
+        case PermissionStatus.permanentlyDenied:
+          showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                    title: const Text("INFO"),
+                    content: const Text(
+                        "Para un correcto funcionamiento es necesario que entres a ajustes permitas el acceso a la ubicación del dispositivo "),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            openAppSettings();
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Ir a Ajustes")),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Cancelar"))
+                    ],
+                  ));
+
+          break;
       }
     });
   }
 
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      final status = await _controller.check();
+      if (status == PermissionStatus.granted) {
+        Navigator.pushReplacementNamed(context, Routes.MAP);
+      }
+    }
+  }
+
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _suscription.cancel();
     _controller.dispose();
     super.dispose();
