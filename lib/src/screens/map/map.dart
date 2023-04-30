@@ -12,39 +12,62 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-
-  final _initialCameraPosition = const CameraPosition(target: LatLng(10.0175672,-69.2689193), zoom: 50);
+  final _initialCameraPosition =
+      const CameraPosition(target: LatLng(10.0175672, -69.2689193), zoom: 50);
 
   /* final _controller = HomeController(); */
 
-
-
-  
-
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<HomeController>(context);
 
-     final controller = Provider.of<HomeController>(context);
-
-     controller.onMarkerTap.listen((String id) {
-      print("El marcador seleccionado es : $id");
-     },);
+    controller.onMarkerTap.listen(
+      (String id) {
+        print("El marcador seleccionado es : $id");
+      },
+    );
 
     return Scaffold(
       appBar: AppBar(),
-      body: Consumer<HomeController>(
-        builder: (_,controller,child) => GoogleMap(
-          initialCameraPosition: _initialCameraPosition,
-          /* onMapCreated: _controller.onMapCreated, */
-          /* scrollGesturesEnabled: false, */
-         /*  zoomGesturesEnabled: false, */
-         
-          zoomControlsEnabled: false,
-          compassEnabled: false,
-          onTap: controller.onTap,
-          markers: controller.markers
-        ),
-      )
+      body: Selector<HomeController, bool>(
+        selector: (_, controller) => controller.loading,
+        builder: (context, loading, loadingWidget) {
+          if (loading) {
+            return loadingWidget!;
+          }
+          return Consumer<HomeController>(
+            builder: (_, controller, child) {
+
+              if(!controller.gpsEnabled){
+
+                return Center(
+                  child: Column(mainAxisSize: MainAxisSize.min,children: [
+                    const Padding(
+                      padding: EdgeInsets.all( 40),
+                      child: Text("Para usar esta aplicación necesitamos acceder a su ubicación, por favor active el gps", textAlign: TextAlign.center,),
+                    ),
+                    ElevatedButton(onPressed: (){}, child: const Text("Activar el GPS"))
+
+                  ],),
+                );
+              }
+
+
+              return GoogleMap(
+                initialCameraPosition: _initialCameraPosition,
+                /* onMapCreated: _controller.onMapCreated, */
+                /* scrollGesturesEnabled: false, */
+                /*  zoomGesturesEnabled: false, */
+
+                zoomControlsEnabled: false,
+                compassEnabled: false,
+                onTap: controller.onTap,
+                markers: controller.markers);
+            }
+          );
+        },
+        child: const Center(child: CircularProgressIndicator()),
+      ),
     );
   }
 }
