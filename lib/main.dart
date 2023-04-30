@@ -6,11 +6,11 @@ import 'package:social_cook/src/screens/detail.dart';
 
 import 'package:social_cook/src/screens/homePage.dart';
 import 'package:social_cook/src/screens/login.dart';
-import 'package:social_cook/src/screens/map.dart';
+import 'package:social_cook/src/screens/map/map.dart';
 import 'package:social_cook/src/screens/register.dart';
 import 'package:social_cook/src/screens/request_permission/request_permission_screen.dart';
 import 'package:social_cook/src/screens/splash/splash.dart';
-import 'package:social_cook/src/ui/home_controller.dart';
+import 'package:social_cook/src/screens/map/map_controller.dart';
 import 'package:social_cook/src/ui/routes/routes.dart';
 
 void main() {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
               secondary: Colors.white,
             ),
           ),
-          initialRoute: Routes.PERMISSIONS,
+          initialRoute: Routes.SPLASH,
           routes: {
             /*   "/": (context) => const MyLoginPage(
                   title: "Login",
