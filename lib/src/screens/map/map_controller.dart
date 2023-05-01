@@ -57,6 +57,8 @@ class HomeController with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> turnOnGps() => Geolocator.openLocationSettings();
+
   void onMapCreated(GoogleMapController controller) {
     controller.setMapStyle(mapStyle);
   }

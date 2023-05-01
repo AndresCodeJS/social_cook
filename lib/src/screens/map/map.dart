@@ -35,25 +35,32 @@ class _MapScreenState extends State<MapScreen> {
           if (loading) {
             return loadingWidget!;
           }
-          return Consumer<HomeController>(
-            builder: (_, controller, child) {
-
-              if(!controller.gpsEnabled){
-
-                return Center(
-                  child: Column(mainAxisSize: MainAxisSize.min,children: [
+          return Consumer<HomeController>(builder: (_, controller, child) {
+            if (!controller.gpsEnabled) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
                     const Padding(
-                      padding: EdgeInsets.all( 40),
-                      child: Text("Para usar esta aplicación necesitamos acceder a su ubicación, por favor active el gps", textAlign: TextAlign.center,),
+                      padding: EdgeInsets.all(40),
+                      child: Text(
+                        "Para usar esta aplicación necesitamos acceder a su ubicación, por favor active el gps",
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    ElevatedButton(onPressed: (){}, child: const Text("Activar el GPS"))
+                    ElevatedButton(
+                        onPressed: () {
+                          //otra forma de acceder al provider
+                         /*  final controller = context.read<HomeController>(); */
+                          controller.turnOnGps();
+                        },
+                        child: const Text("Activar el GPS"))
+                  ],
+                ),
+              );
+            }
 
-                  ],),
-                );
-              }
-
-
-              return GoogleMap(
+            return GoogleMap(
                 initialCameraPosition: _initialCameraPosition,
                 /* onMapCreated: _controller.onMapCreated, */
                 /* scrollGesturesEnabled: false, */
@@ -63,8 +70,7 @@ class _MapScreenState extends State<MapScreen> {
                 compassEnabled: false,
                 onTap: controller.onTap,
                 markers: controller.markers);
-            }
-          );
+          });
         },
         child: const Center(child: CircularProgressIndicator()),
       ),
