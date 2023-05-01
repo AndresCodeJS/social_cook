@@ -51,7 +51,7 @@ class _MapScreenState extends State<MapScreen> {
                     ElevatedButton(
                         onPressed: () {
                           //otra forma de acceder al provider
-                         /*  final controller = context.read<HomeController>(); */
+                          /*  final controller = context.read<HomeController>(); */
                           controller.turnOnGps();
                         },
                         child: const Text("Activar el GPS"))
@@ -60,8 +60,12 @@ class _MapScreenState extends State<MapScreen> {
               );
             }
 
+            final initialPosition = LatLng(controller.initialPosition!.latitude,
+                controller.initialPosition!.longitude);
+
             return GoogleMap(
-                initialCameraPosition: _initialCameraPosition,
+                initialCameraPosition:
+                    CameraPosition(target: initialPosition, zoom: 40),
                 /* onMapCreated: _controller.onMapCreated, */
                 /* scrollGesturesEnabled: false, */
                 /*  zoomGesturesEnabled: false, */

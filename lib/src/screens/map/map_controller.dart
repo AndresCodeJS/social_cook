@@ -26,6 +26,9 @@ class HomeController with ChangeNotifier {
   late bool _gpsEnabled;
   bool get gpsEnabled => _gpsEnabled;
 
+  Position? _initialPosition;
+  Position? get initialPosition => _initialPosition;
+
   StreamSubscription? _gpsSubscription;
 
   HomeController() {
@@ -49,17 +52,22 @@ class HomeController with ChangeNotifier {
     _gpsEnabled = await Geolocator.isLocationServiceEnabled();
 
     //Se usa para ecuchar cuando se active o desactive el gps
-    _gpsSubscription = Geolocator.getServiceStatusStream().listen((status) {
+    _gpsSubscription =
+        Geolocator.getServiceStatusStream().listen((status) async {
       _gpsEnabled = status == ServiceStatus.enabled;
+      await getInitialPosition();
       notifyListeners();
     });
 
-    if (_gpsEnabled) {
-      final initialPosition = await Geolocator.getCurrentPosition();
-      print("Posicion inicial es: $initialPosition");
-    }
+    await getInitialPosition();
 
     notifyListeners();
+  }
+
+  Future<void> getInitialPosition() async {
+    if (_gpsEnabled && _initialPosition == null) {
+      _initialPosition = await Geolocator.getCurrentPosition();
+    }
   }
 
   Future<void> turnOnGps() => Geolocator.openLocationSettings();
