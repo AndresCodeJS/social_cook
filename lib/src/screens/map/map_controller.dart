@@ -54,11 +54,17 @@ class HomeController with ChangeNotifier {
       notifyListeners();
     });
 
+    if (_gpsEnabled) {
+      final initialPosition = await Geolocator.getCurrentPosition();
+      print("Posicion inicial es: $initialPosition");
+    }
+
     notifyListeners();
   }
 
   Future<void> turnOnGps() => Geolocator.openLocationSettings();
 
+  //Para darle un estilo al mapa
   void onMapCreated(GoogleMapController controller) {
     controller.setMapStyle(mapStyle);
   }

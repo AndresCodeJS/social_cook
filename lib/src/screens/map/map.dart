@@ -65,7 +65,8 @@ class _MapScreenState extends State<MapScreen> {
                 /* onMapCreated: _controller.onMapCreated, */
                 /* scrollGesturesEnabled: false, */
                 /*  zoomGesturesEnabled: false, */
-
+                myLocationButtonEnabled: true,
+                myLocationEnabled: true,
                 zoomControlsEnabled: false,
                 compassEnabled: false,
                 onTap: controller.onTap,
