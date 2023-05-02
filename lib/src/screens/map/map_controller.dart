@@ -15,7 +15,7 @@ class HomeController with ChangeNotifier {
   final Map<MarkerId, Marker> _markers = {};
   Set<Marker> get markers => _markers.values.toSet();
   //Polygons
-  late String _polygonId;
+  String _polygonId = '0';
   final Map<PolygonId, Polygon> _polygons = {};
   Set<Polygon> get polygons => _polygons.values.toSet();
 
@@ -82,16 +82,30 @@ class HomeController with ChangeNotifier {
     controller.setMapStyle(mapStyle);
   }
 
-  void newPolygonId(){
-  _polygonId = const Uuid().v4();
+  void newPolygonId() {
+    _polygonId = const Uuid().v4();
   }
 
   onTap(LatLng position) async {
+    final PolygonId polygonId = PolygonId(_polygonId);
 
+    late Polygon polygon;
 
+    if (_polygons.containsKey(polygonId)) {
+      final tmp = _polygons[polygonId];
+      polygon = tmp!.copyWith(pointsParam: [...tmp.points, position]);
+    } else {
+      final color = Colors.primaries[_polygons.length];
+      polygon = Polygon(
+          polygonId: polygonId,
+          points: [position],
+          fillColor: color.withOpacity(0.4),
+          strokeWidth: 1);
+    }
 
+    _polygons[polygonId] = polygon;
 
-
+    notifyListeners();
 
     /*  final id = _markers.length.toString();
     final markerId = MarkerId(id);
