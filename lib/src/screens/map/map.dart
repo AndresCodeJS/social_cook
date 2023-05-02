@@ -28,7 +28,13 @@ class _MapScreenState extends State<MapScreen> {
     );
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: () {
+            controller.newPolygonId();
+          }, icon: const Icon(Icons.add)),
+        ],
+      ),
       body: Selector<HomeController, bool>(
         selector: (_, controller) => controller.loading,
         builder: (context, loading, loadingWidget) {
@@ -64,17 +70,19 @@ class _MapScreenState extends State<MapScreen> {
                 controller.initialPosition!.longitude);
 
             return GoogleMap(
-                initialCameraPosition:
-                    CameraPosition(target: initialPosition, zoom: 40),
-                /* onMapCreated: _controller.onMapCreated, */
-                /* scrollGesturesEnabled: false, */
-                /*  zoomGesturesEnabled: false, */
-                myLocationButtonEnabled: true,
-                myLocationEnabled: true,
-                zoomControlsEnabled: false,
-                compassEnabled: false,
-                onTap: controller.onTap,
-                markers: controller.markers);
+              initialCameraPosition:
+                  CameraPosition(target: initialPosition, zoom: 40),
+              /* onMapCreated: _controller.onMapCreated, */
+              /* scrollGesturesEnabled: false, */
+              /*  zoomGesturesEnabled: false, */
+              myLocationButtonEnabled: true,
+              myLocationEnabled: true,
+              zoomControlsEnabled: false,
+              compassEnabled: false,
+              onTap: controller.onTap,
+              markers: controller.markers,
+              polygons: controller.polygons,
+            );
           });
         },
         child: const Center(child: CircularProgressIndicator()),
