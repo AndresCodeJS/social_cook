@@ -27,10 +27,6 @@ class _RequestPermisionScreenState extends State<RequestPermisionScreen>
 
     WidgetsBinding.instance.addObserver(this);
 
-   /*  if(PermissionStatus.granted){
-
-    } */
-
     _suscription = _controller.onStatusChanged.listen((status) {
       switch (status) {
         case PermissionStatus.granted:
